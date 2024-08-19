@@ -1,0 +1,38 @@
+import random
+
+SESSIONS_PLAYED = 50
+
+teams = [
+    {"name": "Claflin", "skill": 74, "score": 0}, 
+    {"name": "SC State", "skill": 67, "score": 0}
+]
+
+def playSession():
+    possession = random.choice(teams)
+    shot_probability = random.random() * 100
+    shot_made = (shot_probability <= possession["skill"])
+    shot_type = random.choice([2,3])
+
+    if shot_made:
+        possession["score"] += shot_type
+
+def game_outcome():
+    team1 = teams[0]
+    score1 = team1["score"]
+    team2 = teams[1]
+    score2 = team2["score"]
+    txt = "It was {0} game! The score was {1} to {2}!"
+
+    if score1 > score2:
+        return txt.format(team1["name"] + "'s" , score1, score2)
+    elif score1 < score2:
+        return txt.format(team2["name"] + "'s" , score1, score2)
+    else:
+        return txt.format("a tied", score1, score2)
+
+
+for i in range(SESSIONS_PLAYED):
+    playSession()
+
+print(teams[0]["name"] + " v. " + teams[1]["name"])
+print(game_outcome())

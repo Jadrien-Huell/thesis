@@ -1,6 +1,3 @@
-"""
-By: Jadrien Huell
-"""
 import random # Temporary (for random stats)
 
 positions = ["center", "power forward", "small forward", "point guard", "shooting guard"]

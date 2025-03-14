@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fixed-Size Scrollable Dropdown</title>
+<style>
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-trigger {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: none;
+    width: 200px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-menu.show {
+    display: block;
+  }
+
+  .dropdown-item {
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+
+  /* Optional: Style scrollbar */
+  .dropdown-menu::-webkit-scrollbar {
+    width: 8px; /* Adjust scrollbar width */
+  }
+
+  .dropdown-menu::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="dropdown-container">
+  <div class="dropdown-trigger">Select an Option</div>
+  <div class="dropdown-menu">
+    <div class="dropdown-item">Option 1</div>
+    <div class="dropdown-item">Option 2</div>
+    <div class="dropdown-item">Option 3</div>
+    <div class="dropdown-item">Option 4</div>
+    <div class="dropdown-item">Option 5</div>
+    <div class="dropdown-item">Option 6</div>
+    <div class="dropdown-item">Option 7</div>
+    <div class="dropdown-item">Option 8</div>
+    <div class="dropdown-item">Option 9</div>
+    <div class="dropdown-item">Option 10</div>
+    <div class="dropdown-item">Option 11</div>
+    <div class="dropdown-item">Option 12</div>
+    <div class="dropdown-item">Option 13</div>
+    <div class="dropdown-item">Option 14</div>
+    <div class="dropdown-item">Option 15</div>
+  </div>
+</div>
+
+<script>
+  const dropdownTrigger = document.querySelector('.dropdown-trigger');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+
+  dropdownTrigger.addEventListener('click', function() {
+    dropdownMenu.classList.toggle('show');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!dropdownTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>

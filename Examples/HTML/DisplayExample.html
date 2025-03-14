@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Box Score</title>
+<style>
+  .box-score {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: sans-serif;
+  }
+
+  .box-score th, .box-score td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .box-score th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .box-score .team-name {
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .box-score .total {
+    font-weight: bold;
+    background-color: #e0e0e0;
+  }
+</style>
+</head>
+<body>
+
+<table class="box-score">
+  <thead>
+    <tr>
+      <th class="team-name">Team</th>
+      <th>Q1</th>
+      <th>Q2</th>
+      <th>Q3</th>
+      <th>Q4</th>
+      <th class="total">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="team-name">Home Team</td>
+      <td>20</td>
+      <td>25</td>
+      <td>18</td>
+      <td>22</td>
+      <td class="total">85</td>
+    </tr>
+    <tr>
+      <td class="team-name">Away Team</td>
+      <td>15</td>
+      <td>28</td>
+      <td>20</td>
+      <td>19</td>
+      <td class="total">82</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

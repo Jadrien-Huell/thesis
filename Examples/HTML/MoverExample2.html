@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Move Buttons</title>
+<style>
+  #playerContainer {
+    border: 1px solid black;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  #lineupContainer {
+    border: 1px solid blue;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap to new lines */
+    gap: 5px;
+  }
+
+  button {
+    padding: 8px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div id="sourceContainer">
+  <button class="moveableButton">1</button>
+  <button class="moveableButton">2</button>
+  <button class="moveableButton">3</button>
+  <button class="moveableButton">4</button>
+  <button class="moveableButton">5</button>
+  <button class="moveableButton">6</button>
+  <button class="moveableButton">7</button>
+  <button class="moveableButton">8</button>
+  <button class="moveableButton">9</button>
+  <button class="moveableButton">10</button>
+  <button class="moveableButton">11</button>
+  <button class="moveableButton">12</button>
+</div>
+
+<div id="targetContainer"></div>
+
+<script>
+  const sourceContainer = document.getElementById('sourceContainer');
+  const targetContainer = document.getElementById('targetContainer');
+  const moveableButtons = document.querySelectorAll('.moveableButton');
+  const maxTargetButtons = 5;
+
+  moveableButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      if (button.parentElement === sourceContainer) {
+        if (targetContainer.children.length < maxTargetButtons) {
+          targetContainer.appendChild(button);
+        } else {
+          alert("Target container is full!");
+        }
+      } else {
+        sourceContainer.appendChild(button);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

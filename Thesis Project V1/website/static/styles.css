@@ -1,0 +1,119 @@
+/* TEAM SELECTION */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  width: 8em;
+}
+
+.dropdown-trigger {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  display: none;
+  width: 100%;
+  height: 150px; /* Fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu.show{
+  display: block;
+}
+
+.dropdown-item {
+  padding: 8px 15px;
+  border-bottom: 1px solid#ccc;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+.dropdown-item:active {
+  background-color: #ccc;
+}
+
+/* PLAYER SELECTION */
+.lineup-container {
+width: 100%;
+}
+
+#lineupContainer, #playerContainer {
+padding: 20px;
+margin: 10px;
+min-height: 100px;
+
+overflow-y: hidden;
+overflow-x: auto;
+white-space: nowrap;
+
+background-color: #f0f0f0;
+border: 1px solid #ccc;
+}
+
+.trigger{
+  cursor: pointer;
+}
+
+.trigger, .menu.show {
+display: block;
+}
+
+.menu {
+display: none;
+}
+
+.team1 {
+border: 1px solid blue;
+}
+
+.team2 {
+border: 1px solid rgb(255, 0, 0);
+}
+
+/* Player Card */
+.player-card {
+  display: inline-block; /*check this here*/
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.player-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.player-card-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.player-card-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.player-card-details {
+  font-size: 0.9em;
+  color: #555;
+}

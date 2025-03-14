@@ -1,0 +1,93 @@
+"""
+By: Jadrien Huell
+"""
+import random # Temporary (for random stats)
+
+positions = ["center", "power forward", "small forward", "point guard", "shooting guard"]
+shot_type = ["two_point", "three_point"]
+#positions = ["C", "PF", "SF", "PG", "SG"]
+
+playbook = {
+    "Normal": {positions[0]: 0.20, positions[1]: 0.20, positions[2]: 0.20, positions[3]: 0.20, positions[4]: 0.20, 
+               shot_type[0]: 0.5, shot_type[1]: 0.5},
+
+    "Pick and roll": {positions[0]: 0.30, positions[1]: 0.25, positions[2]: 0.15, positions[3]: 0.20, positions[4]: 0.10, 
+                      shot_type[0]: 0.6, shot_type[1]: 0.4},
+
+    "Spot up": {positions[0]: 0.15, positions[1]: 0.15, positions[2]: 0.20, positions[3]: 0.25, positions[4]: 0.25, 
+                shot_type[0]: 0, shot_type[1]: 1},
+         }
+
+def create_team():
+    minimum = 0.2
+    maximum = 1 - minimum
+    team1 = []
+
+    for i in range(5):
+        # Player stat information
+        stats = {
+            "name": "Player",
+            "jersey": "{0:02d}".format(random.randint(0, 99)),
+            "position": positions[i],
+            "two_point": minimum + random.random() * maximum,
+            "three_point": minimum + random.random() * maximum
+        }
+        team1.insert(i, Player(stats))
+
+    return team1
+
+class Player:
+    def __init__(self, info):
+        self.name = info["name"]
+        self.jersey = info["jersey"]
+        self.position = info["position"]
+        self.two_point = info["two_point"] # Shot efficiency for 2-pointers
+        self.three_point = info["three_point"] # Shot efficiency for 3-pointers
+
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.players = create_team()
+
+    def lineup(self):
+        # Show player line-up and their stats
+        print("Team: " + self.name)
+
+        for i in range(len(self.players)):
+            player = self.players[i]
+            print("{0}({1}) 2-point:{3:.2f}% / 3-point:{4:.2f}% :: {2}".format(
+                player.name, 
+                player.jersey, 
+                player.position, 
+                player.two_point * 100, 
+                player.three_point * 100))
+
+    def getShotAverage(self, play):
+        # Calculates team's overall shot efficiency with weighted averages
+        plays = playbook
+        play_dict = plays[play]
+        shot = shot_type 
+        two_point_avg = 0
+        three_point_avg = 0
+        shot_chance = 0
+
+        for i in range(len(self.players)):
+            player = self.players[i]
+            two_point_avg += player.two_point * play_dict[player.position]
+            three_point_avg += player.three_point * play_dict[player.position]
+
+        shot_chance = two_point_avg * play_dict[shot[0]] + three_point_avg * play_dict[shot[1]]
+
+        return {"two_point": two_point_avg, "three_point": three_point_avg, "shot_chance": shot_chance}
+
+
+team1 = Team("Porters")
+team1.lineup()
+
+def printPlayData(play):
+        normalPlay = team1.getShotAverage(play)
+        print("\n{0}... Averages 2-point: {1:.2f}% / 3-point: {2:.2f}% / shot-chance: {3:.2f}%".format(play[0:4], normalPlay["two_point"] * 100, normalPlay["three_point"] * 100, normalPlay["shot_chance"] * 100))
+
+printPlayData("Normal")
+printPlayData("Spot up")
+printPlayData("Pick and roll")

@@ -1,0 +1,7 @@
+# Ignoring dependencies
+__pycache__/
+
+#Ignore potential secret files
+*.env
+
+

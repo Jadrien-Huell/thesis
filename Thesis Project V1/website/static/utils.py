@@ -1,24 +1,36 @@
 import math
-from .sampleData import Teams
+from .data import getNumber, getTeam, Teams
+# from .sampleData import Teams
+
+# Important stats to look at
+statistics = ["FG%", "FG", "3P%", "3P", "2P%", "2P", "FT%", "FT", "PTS"]
 
 # Create player variant sets: A player with different versions of themself
 def createPlayerVariationSet(player):
     variantList = [player]
+    x = 5
     for i in range(0, 2):
-        variant = {} #player.copy()
-        x = (i-1) * 5
+        variant = {}
+        x *= -1
+        change = (1+x/100)
 
         # Modify player stats
-        for statName in ["PTS","FG%","3P%","FT%"]:
+        for statName in statistics:
             statValue = player[statName]
-            variant[statName]=statValue*(1+x/100)
+            if getNumber(statValue):
+                variant[statName]=statValue*change
 
         # Adds variant to list
         variantList.append(variant)
 
     return variantList
 
-
+# Creates Set of Player Variations
+def createLineupOfVariationSets(teamData):
+    lineup = []
+    for player in teamData['players']:
+        lineup.append(createPlayerVariationSet(player))
+    return lineup
 
 # Generates unique combinations using an array of arrays containing components
 def createCombinations(componentLists):
@@ -46,41 +58,42 @@ def createCombinations(componentLists):
     
     return listOfCombinations
 
+# Creates Unique Combinations 
+def createLineupVariationSet(teamData):
+    lineupSet = createLineupOfVariationSets(teamData)
+    return createCombinations(lineupSet)
+
 # Calculates the average for the team score
 def getLineupSummary(lineup):
     stats = {"SC":0}
-    for statName in ["PTS","FG%","3P%","FT%"]:
-        stats[statName] = 0
 
-    for player in lineup:
-        for statName in ["PTS","FG%","3P%","FT%"]:
-            stats[statName] += player[statName] / len(lineup)
+    # Initialize keys with zeros
+    for statName in statistics:
+        stats[statName] = 0.0
 
+    # Calculate team average
     for player in lineup:
-        for statName in ["FG%","3P%","FT%"]:
-            stats['SC'] += (player['PTS'] * player[statName] / 100)
+        for statName in statistics:
+            stat = player.get(statName, 0) # Helps prevent missing values
+            stats[statName] += stat #/ len(lineup)
+
+    # Calculating team score
+    for player in lineup:
+        for statName in ["FG","3P","2P","FT"]:
+            point = player.get(statName, 0) 
+            percent = player.get(f"{statName}%", 0) 
+            stats["SC"] += point * percent
     
     return stats
 
-# Creates Set of Player Variations
-def createLineupSetWithVariations(teamData):
-    lineup = []
-    for player in teamData['players']:
-        lineup.append(createPlayerVariationSet(player))
-    return lineup
-
-# Creates Unique Combinations 
-def createLineupVariationSet(teamData):
-    lineupSet = createLineupSetWithVariations(teamData)
-    return createCombinations(lineupSet)
-
 # Compares Teams' Unique Combinations
 def getComparison(data):
-    board = {"team1":0, "team2":0, "tie": 0}
+    board = {"team1":0, "team2":0, "tie": 0, "total": 0, "team1Win%" : 0, "team2Win%" : 0}
     team1 = createLineupVariationSet(data[0])
     team2 = createLineupVariationSet(data[1])
     mainStat = "SC"
 
+    # Comparing teams' line up
     for team1line in team1:
         for team2line in team2:
             team1Sum = getLineupSummary(team1line)
@@ -93,13 +106,28 @@ def getComparison(data):
             else:
                 board['tie'] += 1
 
+    # Information on the teams' lineup comparisions
+    board["total"] = board["team1"] + board["team2"] + board["tie"]
+    board["team1Win%"] = board["team1"] * 100 / board["total"] 
+    board["team2Win%"] = board["team2"] * 100 / board["total"]
+
     return board
 
+# Gets the game details of lineup & predictions
 def getGameDetails(data):
     details = {}
     
+    # Gets the teams overall stats
     details['team1'] = getLineupSummary(data[0]["players"])
     details["team2"] = getLineupSummary(data[1]["players"])
+
+    # Compare teams' lineup to determine chances of winning
     details['score'] = getComparison(data)
 
     return details
+
+# Ben Simmons Problem:
+# team = getTeam('BRK')
+# td = {"team": "BOS", "players": [team[8]]}
+# comp = getComparison([td, td])
+# print(comp)

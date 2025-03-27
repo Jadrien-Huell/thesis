@@ -8,12 +8,12 @@ def getUrl(team, season):
 def getTeamStats(team, season):
     url = getUrl(team, season)
     page = requests.get(url)
-    soup = BeautifulSoup(page.text, 'html')
+    soup = BeautifulSoup(page.text, 'html.parser')
 
     table = soup.find('table', attrs={"id":"per_game_stats"})
 
-    stats_titles = table.find_all('th', attrs={"scope":"col"})
-    stats_table_titles = [ titles.text.strip() for titles in stats_titles ]
+    stats_titles = table.find_all('th') # attrs={"scope":"col"}
+    stats_table_titles = [ titles.text.strip() for titles in stats_titles[:30] ]
     df = pandas.DataFrame(columns=stats_table_titles)
 
     stats_columns = table.find_all('tr')
@@ -28,3 +28,4 @@ def getTeamStats(team, season):
         df.loc[len(df)] = stats
 
     return df
+

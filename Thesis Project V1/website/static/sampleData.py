@@ -7,7 +7,7 @@ Stats estimate: (p+(p*0.5+15)*1.23)
 """
 '''
     "Example" : [
-        { "name": "",         "age": 0, "number": 0, "PTS":0,    "FG%": 0,   "3P%": 0,    "FT%": 0, },
+        { "name": "", "age": 0, "number": 0, "PTS":0,    "FG%": 0,   "3P%": 0,    "FT%": 0, },
     ],
 '''
 Teams = [

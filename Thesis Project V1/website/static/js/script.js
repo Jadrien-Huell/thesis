@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         element.dataset.playerId = id; // Use data attribute
         
         element.innerHTML = `
-            <img src="${imgScr}" onerror="this.src='${defaultImgScr}'" alt="${playerInfo.Player} Headshot">
             <div class="player-card-content">
+                <img src="${imgScr}" onerror="this.src='${defaultImgScr}'" alt="${playerInfo.Player} Headshot">
                 <div class="player-card-name">${playerNameShort}</div>
                 <div class="player-card-details">
                     <p>Position: ${playerInfo.Pos}</p>
@@ -110,13 +110,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     content.innerText = "";
                     for (const key in stats) {
                         if (key == "SC") {
-                            continue;
+                            //continue;
                         }   
-                        content.innerText += `\n${key}: ${stats[key]}`;
+                        content.innerText += `${key}: ${stats[key].toFixed(2)}\n`;
                     }   
+                    //content.innerText = content.innerText.replace(/%g/g, "\t_|_\t")
                 });
-
-                datacontainer.innerText = `Team1's Chances: ${score['team1Win%']}% Team2's Chances: ${score['team2Win%']}%`
+                
+                
+                datacontainer.innerText = `Team1's Chances: ${(score['team1Win%']).toFixed(2)}% Team2's Chances: ${score['team2Win%'].toFixed(2)}%`
             } else {
                 console.error('Error sending data:', response.status);
             }

@@ -8,7 +8,7 @@ statistics = ["FG%", "FG", "3P%", "3P", "2P%", "2P", "FT%", "FT", "PTS"]
 # Create player variant sets: A player with different versions of themself
 def createPlayerVariationSet(player):
     variantList = [player]
-    x = 5
+    x = 8
     for i in range(0, 2):
         variant = {}
         x *= -1
@@ -80,9 +80,10 @@ def getLineupSummary(lineup):
     # Calculating team score
     for player in lineup:
         for statName in ["FG","3P","2P","FT"]:
-            point = player.get(statName, 0) 
+            point = player.get("PTS", 0)
+            stat_point = player.get(statName, 0) 
             percent = player.get(f"{statName}%", 0) 
-            stats["SC"] += point * percent
+            stats["SC"] += (point*0.5 + stat_point*0.5) * percent
     
     return stats
 
@@ -94,22 +95,24 @@ def getComparison(data):
     mainStat = "SC"
 
     # Comparing teams' line up
-    for team1line in team1:
-        for team2line in team2:
-            team1Sum = getLineupSummary(team1line)
-            team2Sum = getLineupSummary(team2line)
+    if (len(team1)>1 and len(team2)>1):
+        for team1line in team1:
+            for team2line in team2:
+                team1Sum = getLineupSummary(team1line)
+                team2Sum = getLineupSummary(team2line)
 
-            if team1Sum[mainStat] > team2Sum[mainStat]:
-                board["team1"] += 1
-            elif team1Sum[mainStat] < team2Sum[mainStat]:
-                board["team2"] += 1
-            else:
-                board['tie'] += 1
+                if team1Sum[mainStat] > team2Sum[mainStat]:
+                    board["team1"] += 1
+                elif team1Sum[mainStat] < team2Sum[mainStat]:
+                    board["team2"] += 1
+                else:
+                    board['tie'] += 1
 
     # Information on the teams' lineup comparisions
     board["total"] = board["team1"] + board["team2"] + board["tie"]
-    board["team1Win%"] = board["team1"] * 100 / board["total"] 
-    board["team2Win%"] = board["team2"] * 100 / board["total"]
+    if (board["total"] > 0):
+        board["team1Win%"] = board["team1"] / board["total"] 
+        board["team2Win%"] = board["team2"] / board["total"]
 
     return board
 
@@ -123,6 +126,11 @@ def getGameDetails(data):
 
     # Compare teams' lineup to determine chances of winning
     details['score'] = getComparison(data)
+
+    # Estimate points
+    averagePTS = (details["team1"]["PTS"] + details["team1"]["PTS"]) * 0.5
+    details['score']["team1PTS"] = details["score"]["team1Win%"] * averagePTS
+    details['score']["team2PTS"] = details["score"]["team2Win%"] * averagePTS
 
     return details
 

@@ -1,0 +1,126 @@
+[
+    {
+      "name": "Atlanta Hawks",
+      "logo": "images/nba-atlanta-hawks-logo-480x480.png"
+    },
+    {
+      "name": "Boston Celtics",
+      "logo": "images/nba-boston-celtics-logo-480x480.png"
+    },
+    {
+      "name": "Brooklyn Nets",
+      "logo": "images/nba-brooklyn-nets-logo-480x480.png"
+    },
+    {
+      "name": "Charlotte Hornets",
+      "logo": "images/nba-charlotte-hornets-logo-480x480.png"
+    },
+    {
+      "name": "Chicago Bulls",
+      "logo": "images/nba-chicago-bulls-logo-480x480.png"
+    },
+    {
+      "name": "Cleveland Cavaliers",
+      "logo": "images/cleveland-cavaliers-logo-2022-480x480.png"
+    },
+    {
+      "name": "Dallas Mavericks",
+      "logo": "images/nba-dallas-mavericks-logo-480x480.png"
+    },
+    {
+      "name": "Denver Nuggets",
+      "logo": "images/nba-denver-nuggets-logo-2018-480x480.png"
+    },
+    {
+      "name": "Detroit Pistons",
+      "logo": "images/nba-detroit-pistons-logo-480x480.png"
+    },
+    {
+      "name": "Golden State Warriors",
+      "logo": "images/nba-golden-state-warriors-logo-2020-480x480.png"
+    },
+    {
+      "name": "Houston Rockets",
+      "logo": "images/nba-houston-rockets-logo-2020-300x300.png"
+    },
+    {
+      "name": "Indiana Pacers",
+      "logo": "images/nba-indiana-pacers-logo-480x480.png"
+    },
+    {
+      "name": "LA Clippers",
+      "logo": "images/nba-la-clippers-logo-2024-480x480.png"
+    },
+    {
+      "name": "Los Angeles Lakers",
+      "logo": "images/nba-los-angeles-lakers-logo-480x480.png"
+    },
+    {
+      "name": "Memphis Grizzlies",
+      "logo": "images/nba-memphis-grizzlies-logo-480x480.png"
+    },
+    {
+      "name": "Miami Heat",
+      "logo": "images/nba-miami-heat-logo-480x480.png"
+    },
+    {
+      "name": "Milwaukee Bucks",
+      "logo": "images/nba-milwaukee-bucks-logo-480x480.png"
+    },
+    {
+      "name": "Minnesota Timberwolves",
+      "logo": "images/nba-minnesota-timberwolves-logo-480x480.png"
+    },
+    {
+      "name": "New Orleans Pelicans",
+      "logo": "images/nba-new-orleans-pelicans-logo-480x480.png"
+    },
+    {
+      "name": "New York Knicks",
+      "logo": "images/nba-new-york-knicks-logo-480x480.png"
+    },
+    {
+      "name": "Oklahoma City Thunder",
+      "logo": "images/nba-oklahoma-city-thunder-logo-480x480.png"
+    },
+    {
+      "name": "Orlando Magic",
+      "logo": "images/nba-orlando-magic-logo-480x480.png"
+    },
+    {
+      "name": "Philadelphia 76ers",
+      "logo": "images/nba-philadelphia-76ers-logo-480x480.png"
+    },
+    {
+      "name": "Phoenix Suns",
+      "logo": "images/nba-phoenix-suns-logo-480x480.png"
+    },
+    {
+      "name": "Portland Trail Blazers",
+      "logo": "images/nba-portland-trail-blazers-logo-480x480.png"
+    },
+    {
+      "name": "Sacramento Kings",
+      "logo": "images/nba-sacramento-kings-logo-480x480.png"
+    },
+    {
+      "name": "San Antonio Spurs",
+      "logo": "images/nba-san-antonio-spurs-logo-480x480.png"
+    },
+    {
+      "name": "Toronto Raptors",
+      "logo": "images/nba-toronto-raptors-logo-2020-480x480.png"
+    },
+    {
+      "name": "Utah Jazz",
+      "logo": "images/utah-jazz-logo-2022-480x480.png"
+    },
+    {
+      "name": "Washington Wizards",
+      "logo": "images/nba-washington-wizards-logo-480x480.png"
+    },
+    {
+      "name": "NBA",
+      "logo": "images/nba-logo-transparent-480x480.png"
+    }
+  ]

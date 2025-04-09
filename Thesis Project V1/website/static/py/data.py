@@ -42,7 +42,8 @@ TeamNames = {
     "Washington Wizards"    : "WAS",		 
 }
 
-# suffix - 24.jpg
+# Basketball team player image tags for https://basketball.realgm.com/
+# suffix - ...{tag}24.jpg
 TeamImageTags = {
     "ATL" : "atl",	 
     "BOS" : "bos",

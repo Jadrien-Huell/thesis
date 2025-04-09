@@ -3,44 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basketball Lineup Sim</title>
+    <title>Document</title>
     <link rel="stylesheet" href="static/css/styles.css">
-    <script defer type="text/javascript" src="static/js/script.js"></script>
+    <script defer type="text/javascript" src="static/js/main.js"></script>
 </head>
 <body>
-    <!--Team Selection-->
-    <div id="team1" class="dropdown-container team1">
-        <h2>Team 1</h2>
-        <div class="dropdown-trigger">Select Team1</div>
-        <div class="dropdown-menu"></div>
-    </div>
+    <header>
+        <h1>Basketball Lineup Simulation</h1></header>
 
-    <div id="team2" class="dropdown-container team2">
-        <h2>Team 2</h2>
-        <div class="dropdown-trigger">Select Team2</div>
-        <div class="dropdown-menu"></div>
-    </div>
+    <!-- Navigational bar
+    <nav id="navbar">
+        <ul>
+            <li><a href="">Teams</a></li>
+            <li><a href="">Outcome</a></li>
+            <li><a href="">Statistics</a></li>
+        </ul>
+    </nav> -->
 
-    <div><br></div>
+    <!-- Main -->
+    <main>
+        <!-- Dropdown menus -->
+        <div id="team-dropdowns">
+            <div id="team1" class="dropdown-container">
+                <!-- Dropdown trigger & selected -->
+                <div class="trigger">
+                    <div class="selected">
+                        <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                        <div class="selected-team">Team A</div>
+                    </div>
+                </div>
+                <br>
+                <!-- Dropdown menu selections -->
+                <div class="dropdown-menu"></div>
+            </div>
 
-    <!--Player Selection-->
-    <div class="lineup-container team1 team1-lu">
-        <div id="lineupContainer" class="trigger lineup"></div>
-        <div id="playerContainer" class="menu"></div>
-        <p class="team1"></p>    
-    </div>
-    
-    <br>
+            <div id="team2" class="dropdown-container">
+                <!-- Dropdown trigger & selected -->
+                <div class="trigger">
+                    <div class="selected">
+                        <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                        <div class="selected-team">Team B</div>
+                    </div>
+                </div>
+                <br>
+                <!-- Dropdown menu selections -->
+                <div class="dropdown-menu"></div>
+            </div>
+        </div>
 
-    <div class="lineup-container team2 team2-lu">
-        <div id="lineupContainer" class="trigger lineup"></div>
-        <div id="playerContainer" class="menu"></div>
-        <p class="team2"></p>    
-    </div>
+        <!-- Team lineup menu (roster and player selection) -->
+        <section id="team-lineups">
+            <div id="team1" class="lineup-container">
+                <div class="lineup trigger"></div>
+                <br>
+                <div class="roster"></div>
+            </div>
 
-    <br>
+            <div id="team2" class="lineup-container">
+                <div class="lineup trigger"></div>
+                <br>
+                <div class="roster"></div>
+            </div>
+        </section>
 
-    <h2>Outcome</h2>
-    <section class="data-container"> DATA GOES HERE </section>
+        <!-- Game scoreboard (Outcome) -->
+        <section id="scoreboard">
+            <h3>Est. Outcome</h3>
+            <div id="score-display">
+                <div id="team1-score" class="team-score">
+                    <div class="team-name">Team1</div>
+                    <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                    <div class="team-points">000</div>
+                </div>
+                <div>VS</div>
+                <div id="team2-score" class="team-score reverse-display">
+                    <div class="team-name">Team2</div>
+                    <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                    <div class="team-points">000</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game data & stats -->
+        <section id="team-stats">
+            <h3>Statistics</h3>
+            <p>Meat & Beans</p>
+        </section>
+
+    </main>
+    <footer>Footer</footer>
 </body>
 </html>

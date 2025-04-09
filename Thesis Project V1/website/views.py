@@ -1,18 +1,17 @@
 from flask import Blueprint, render_template, jsonify, request
-from .static.sampleData import Teams
-from .static.data import TeamNames, TeamImageTags, getTeam
-from .static import utils
+from .static.py.data import TeamNames, TeamImageTags, getTeam
+from .static.py import utils
 
 views = Blueprint('views', __name__)
 
 # Home
 @views.route('/')
 def home():
-    return render_template("main.html")
+    return render_template("mainOLD.html")
 
 @views.route('/2')
 def home2():
-    return render_template("main2.html")
+    return render_template("main.html")
 
 # Retrieve and send team names
 @views.route('/api/teams')

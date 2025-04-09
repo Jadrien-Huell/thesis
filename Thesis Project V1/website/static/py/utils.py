@@ -1,6 +1,5 @@
 import math
 from .data import getNumber, getTeam, Teams
-# from .sampleData import Teams
 
 # Important stats to look at
 statistics = ["FG%", "FG", "3P%", "3P", "2P%", "2P", "FT%", "FT", "PTS"]

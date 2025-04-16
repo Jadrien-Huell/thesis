@@ -7,11 +7,11 @@ views = Blueprint('views', __name__)
 # Home
 @views.route('/')
 def home():
-    return render_template("mainOLD.html")
-
-@views.route('/2')
-def home2():
     return render_template("main.html")
+
+@views.route('/old')
+def home2():
+    return render_template("mainOLD.html")
 
 # Retrieve and send team names
 @views.route('/api/teams')
@@ -20,7 +20,7 @@ def get_all_teams():
 
 # Retrieve and send team roster with stats
 @views.route('/api/team1', methods=['POST'])
-@views.route('/api/team2', methods=['POST'])
+#@views.route('/api/team2', methods=['POST'])
 def get_team_data():
     name = request.get_json()
     data = getTeam(name)

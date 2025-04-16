@@ -272,6 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadPage();
 
     // Calculate & Compare
-    update();
-    setInterval(update, 3000)
+    //update();
+    //setInterval(update, 5000)
 });

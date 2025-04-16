@@ -8,7 +8,7 @@ Requesting = []
 TeamNames = {
     "Atlanta Hawks"         : "ATL",	 
     "Boston Celtics"        : "BOS",
-    "Brooklyn Nets "        : "BRK",	        
+    "Brooklyn Nets"        : "BRK",	        
     "Charlotte Hornets"     : "CHO",	 
     "Chicago Bulls"         : "CHI",	 
     "Cleveland Cavaliers"   : "CLE",	 

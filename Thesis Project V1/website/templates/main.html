@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NBA Line Simulation</title>
     <link rel="stylesheet" href="static/css/styles.css">
+    <script defer src="https://code.highcharts.com/highcharts.js"></script>
+    <script defer src="https://code.highcharts.com/modules/data.js"></script>
+    <script defer src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script defer src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- <script defer type="text/javascript" src="static/js/main.js"></script> -->
     <script defer type="text/javascript" src="static/js/main.js"></script>
+    <!-- <script defer type="module" src="static/js/nbaStatChart.js"></script> -->
 </head>
 <body>
     <header>
-        <h1>Basketball Lineup Simulation</h1></header>
+        <h1>NBA Line Simulation</h1>
+    </header>
 
     <!-- Navigational bar
     <nav id="navbar">
@@ -27,8 +34,8 @@
             <div id="team1" class="dropdown-container">
                 <!-- Dropdown trigger & selected -->
                 <div class="trigger">
-                    <div class="selected">
-                        <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                    <div class="selected team1-color">
+                        <img class="team1-selected-image" src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Team A">
                         <div class="selected-team">Team A</div>
                     </div>
                 </div>
@@ -40,8 +47,8 @@
             <div id="team2" class="dropdown-container">
                 <!-- Dropdown trigger & selected -->
                 <div class="trigger">
-                    <div class="selected">
-                        <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
+                    <div class="selected team2-color">
+                        <img class="team2-selected-image" src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Team B">
                         <div class="selected-team">Team B</div>
                     </div>
                 </div>
@@ -53,13 +60,13 @@
 
         <!-- Team lineup menu (roster and player selection) -->
         <section id="team-lineups">
-            <div id="team1" class="lineup-container">
+            <div id="team1" class="lineup-container team1-color">
                 <div class="lineup trigger"></div>
                 <br>
                 <div class="roster"></div>
             </div>
 
-            <div id="team2" class="lineup-container">
+            <div id="team2" class="lineup-container team2-color">
                 <div class="lineup trigger"></div>
                 <br>
                 <div class="roster"></div>
@@ -68,29 +75,30 @@
 
         <!-- Game scoreboard (Outcome) -->
         <section id="scoreboard">
-            <h3>Est. Outcome</h3>
-            <div id="score-display">
-                <div id="team1-score" class="team-score">
-                    <div class="team-name">Team1</div>
-                    <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
-                    <div class="team-points">000</div>
-                </div>
-                <div>VS</div>
-                <div id="team2-score" class="team-score reverse-display">
-                    <div class="team-name">Team2</div>
-                    <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="">
-                    <div class="team-points">000</div>
+            <div id="scoreboard-container">
+                <h3>Est. Outcome</h3>
+                <div id="score-display">
+                    <div id="team1-score" class="team-score">
+                        <div class="team-name">Team 1</div>
+                        <img class="team1-selected-image" src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Team A">
+                        <div class="team-points">0</div>
+                    </div>
+                    <div>VS</div>
+                    <div id="team2-score" class="team-score reverse-display">
+                        <div class="team-name">Team 2</div>
+                        <img class="team2-selected-image" src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Team B">
+                        <div class="team-points">0</div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Game data & stats -->
         <section id="team-stats">
-            <h3>Statistics</h3>
-            <p>Meat & Beans</p>
+            <div id="nba-team-stat"></div>
         </section>
 
     </main>
-    <footer>Footer</footer>
+    <footer>Disclaimer: Predictions are based on mathematical models and are not guaranteed. Please use responsibly and at your own risk.</footer>
 </body>
 </html>

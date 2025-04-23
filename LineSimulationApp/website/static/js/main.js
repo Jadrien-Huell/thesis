@@ -166,8 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
             for (index in imageList) {
                 const imageData = imageList[index]
                 const imageName = imageData.name;
-                //console.log(imageName.replace(/\W\s/gi, ""));
                 const isTeamLogo = Teams[imageName]
+                //console.log(imageName.replace(/\W\s/gi, ""));
                 if (isTeamLogo) {
                     IconsAndLogos[imageName] = imageData.logo;
                 } else {
@@ -216,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) { throw new Error('Network response was not ok'); }
             const result = await response.json();
             // console.log("Results:", result['data']['score'], result);
+            console.table(result['data']['score']);
+            console.log(result);
             // console.table(result['data']['team1']);
             // console.table(result['data']['team2']);
 

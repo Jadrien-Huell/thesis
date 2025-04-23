@@ -7,19 +7,21 @@ statistics = ["FG%", "FG", "3P%", "3P", "2P%", "2P", "FT%", "FT", "PTS"]
 # Create player variant sets: A player with different versions of themself
 def createPlayerVariationSet(player):
     variantList = [player]
-    for x in [-3, 3]:
+    for x in [-5, 5]:
         variant = {}
         
          # Modify player stats v2
-        newPTS = max(player["PTS"] + x, 1)
-        percent = newPTS / player.get(player["PTS"],1)
+        originPTS = player.get("PTS", 1)
+        newPTS = max(originPTS + x, 1)
+        percent = newPTS / originPTS
+        #print(f"nPTS: {newPTS} - {percent*100}%")
 
         # Modify player stats
         for statName in statistics:
             statValue = player[statName]
             if getNumber(statValue):
-                # variant[statName]=statValue * change
                 variant[statName] = statValue * percent
+        variant["Player"] = player["Player"]
 
         # Adds variant to list
         variantList.append(variant)
@@ -71,6 +73,8 @@ def getLineupSummary(lineup):
         "3PTS": 0,
         "2PTS": 0,
         "FGPTS": 0,
+        "TS%":0,
+        "AV":0,
         }
 
     # Initialize keys with zeros
@@ -90,11 +94,9 @@ def getLineupSummary(lineup):
         # gets player stats
         for statName in statistics:
             playerStats[statName] = player.get(statName, 0)
-            # point = player.get("PTS", 0)
-            # stat_point = player.get(statName, 0) 
-            # percent = player.get(f"{statName}%", 0) 
-            # stats["SC"] += (point*0.5 + stat_point*0.5) * percent
 
+        playerStats["FGA"]    = player.get("FGA", 1)
+        playerStats["FTA"]    = player.get("FTA", 1)
         playerStats["3PTS"]   = playerStats["3P"] * 3 # 3-points per game
         playerStats["2PTS"]   = playerStats["2P"] * 2 # 2-points per game
         playerStats["FGPTS"]  = playerStats["3PTS"] + playerStats["2PTS"] # field-goal-points per game
@@ -103,22 +105,32 @@ def getLineupSummary(lineup):
         playerStats["2CP"]    = playerStats["2PTS"] / max(playerStats["PTS"],1) # % of points that are 2-points
         playerStats["FTCP"]   = playerStats["FTPTS"] / max(playerStats["PTS"],1) # % of points that are free-throws
         playerStats["CP"]     = playerStats["PTS"] / stats["PTS"]
+        playerStats["TS%"]    = playerStats["PTS"] / (2 * (playerStats["FGA"] + 0.44 * playerStats["FTA"]))
+        playerStats["AV"]     = (playerStats["3CP"] * 3) + (playerStats["2CP"] * 2) + (playerStats["FTCP"] * 1)
         
-        stats["3PTS"] += playerStats["3PTS"]
-        stats["2PTS"] += playerStats["2PTS"]
-        stats["FGPTS"] += playerStats["FGPTS"]
-        # stats["SC"] += playerStats["PTS"] * ((playerStats["3CP"] * 0.5) + (playerStats["2CP"] * 0.4) + (playerStats["FTCP"] * 0.1)) 
-        stats["SC"] += (playerStats["3PTS"] + playerStats["2PTS"] + playerStats["FTPTS"])
-    
+        stats["3PTS"]         += playerStats["3PTS"]
+        stats["2PTS"]         += playerStats["2PTS"]
+        stats["FGPTS"]        += playerStats["FGPTS"]
+        stats["TS%"]          += playerStats["TS%"]
+        stats["AV"]           += playerStats["AV"]
+        stats["SC"]           += (10 + playerStats["TS%"]) 
+        
     return stats
 
 # Compares Teams' Unique Combinations
 def getComparison(data):
-    board = {"team1":0, "team2":0, "tie": 0, "total": 0, "team1Win%" : 0, "team2Win%" : 0}
+    board = {"team1":0, "team2":0, "tie": 0, "total": 0, "team1Win%" : 0, "team2Win%" : 0, "team1P":0, "team2P":0}
     team1 = createLineupVariationSet(data[0])
     team2 = createLineupVariationSet(data[1])
-    threshold = 0.6
+
+    # for x in team2:
+    #     print()
+    #     for p in x:
+    #         print(p["Player"], p["PTS"])
+
+    threshold = 5
     mainStat = "SC"
+    # print(board)
 
     # Comparing teams' line up
     if (len(team1)>1 and len(team2)>1):
@@ -128,14 +140,19 @@ def getComparison(data):
             for team2line in team2:
                 team2Sum = getLineupSummary(team2line)
                 diff = team1Sum[mainStat] - team2Sum[mainStat]
-                
                 if abs(diff) > threshold:
                     if diff > 0:
                         board["team1"] += 1
+                        board["team1P"] += team1Sum["AV"]
                     else:
                         board["team2"] += 1
+                        board["team2P"] += team2Sum["AV"]
+                    # print(f"| {board['team1P']:.2f} | {board['team2P']:.2f} |")
+                    # print(f"Team1:{board['team1']}-{board['team2']}:Team2 | Team1:{team1Sum[mainStat]:.2f}\tTeam2:{team2Sum[mainStat]:.2f}")
                 else:
                     board['tie'] += 1
+                    board["team1P"] += team1Sum["AV"]
+                    board["team2P"] += team2Sum["AV"]
                 
 
     # Information on the teams' lineup comparisions
@@ -143,6 +160,9 @@ def getComparison(data):
     if (board["total"] > 0):
         board["team1Win%"] = (board["team1"] + board["tie"] * 0.5) / board["total"] 
         board["team2Win%"] = (board["team2"] + board["tie"] * 0.5) / board["total"]
+        
+        board["team1P"] /= board["total"]
+        board["team2P"] /= board["total"]
 
     return board
 
@@ -158,14 +178,28 @@ def getGameDetails(data):
     details['score'] = getComparison(data)
 
     # Estimate points
-    averagePTS = (details["team1"]["PTS"] + details["team2"]["PTS"]) * 0.5 #* 0.25
-    details['score']["team1PTS"] = details["score"]["team1Win%"] * (averagePTS * 1 + details["team1"]["PTS"] * 0)
-    details['score']["team2PTS"] = details["score"]["team2Win%"] * (averagePTS * 1 + details["team2"]["PTS"] * 0)
+    # averagePTS = (details["team1"]["PTS"] + details["team2"]["PTS"]) * 0.30 #* 0.25
+    # details['score']["team1PTS"] = details["score"]["team1Win%"] * (averagePTS * 1 + details["team1"]["PTS"] * 0)
+    # details['score']["team2PTS"] = details["score"]["team2Win%"] * (averagePTS * 1 + details["team2"]["PTS"] * 0)
+    details['score']["team1PTS"] = details["score"]["team1P"] * 5
+    details['score']["team2PTS"] = details["score"]["team2P"] * 5
 
     return details
 
-# Ben Simmons Problem:
-# team = getTeam('BRK')
-# td = {"team": "BOS", "players": [team[8]]}
-# comp = getComparison([td, td])
+
+# td = {"team": "BOS", "players": []}
+# team1 = getTeam(td["team"])
+# for x in [1, 2, 3, 4, 6]: #
+#     plr = team1[x]
+#     td["players"].append(plr)
+#     print(plr["Player"].encode("utf-7"))
+
+# td2 = {"team": "PHO", "players": []}
+# team2 = getTeam(td2["team"])
+# for x in [1, 0, 7, 8, 12]: #
+#     plr = team2[x]
+#     td2["players"].append(plr)
+#     print(plr["Player"].encode("utf-7"))
+
+# comp = getComparison([td, td2])
 # print(comp)

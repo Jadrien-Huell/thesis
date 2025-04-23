@@ -9,10 +9,6 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("main.html")
 
-@views.route('/old')
-def home2():
-    return render_template("mainOLD.html")
-
 # Retrieve and send team names
 @views.route('/api/teams')
 def get_all_teams():
